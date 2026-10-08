@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodie - Online Food Ordering</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">🍔 Foodie</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#restaurants">Restaurants</a>
+      <a href="#orders">My Orders</a>
+    </nav>
+
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <span id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div>
+        <h1>Delicious food,<br><span>delivered fast.</span></h1>
+        <p>Order your favourite meals from the best restaurants near you.</p>
+        <button onclick="document.getElementById('restaurants').scrollIntoView()">
+          Order Now
+        </button>
+      </div>
+
+      <div class="hero-food">🍕</div>
+    </section>
+
+    <!-- Search -->
+    <section class="search-section">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search restaurants or food..."
+        oninput="searchFood()"
+      >
+    </section>
+
+    <!-- Restaurants -->
+    <section id="restaurants" class="section">
+      <div class="section-title">
+        <h2>Popular Restaurants</h2>
+        <p>Choose your favourite restaurant</p>
+      </div>
+
+      <div id="restaurantList" class="restaurant-grid"></div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menuSection" class="section hidden">
+      <div class="menu-header">
+        <button class="back-btn" onclick="closeMenu()">← Back</button>
+        <div>
+          <h2 id="menuRestaurantName"></h2>
+          <p id="menuRestaurantInfo"></p>
+        </div>
+      </div>
+
+      <div id="menuList" class="menu-grid"></div>
+    </section>
+
+    <!-- Orders -->
+    <section id="orders" class="section">
+      <div class="section-title">
+        <h2>My Orders</h2>
+        <p>Your previous orders</p>
+      </div>
+
+      <div id="orderHistory" class="orders-container">
+        <p class="empty-message">No orders yet.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h2>Your Cart</h2>
+        <button onclick="closeCart()">×</button>
+      </div>
+
+      <div id="cartItems"></div>
+
+      <div class="bill">
+        <div>
+          <span>Subtotal</span>
+          <strong id="subtotal">₹0</strong>
+        </div>
+
+        <div>
+          <span>Delivery Fee</span>
+          <strong id="deliveryFee">₹40</strong>
+        </div>
+
+        <div class="total">
+          <span>Total</span>
+          <strong id="total">₹40</strong>
+        </div>
+      </div>
+
+      <button class="checkout-btn" onclick="openCheckout()">
+        Proceed to Checkout
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content checkout">
+
+      <div class="modal-header">
+        <h2>Checkout</h2>
+        <button onclick="closeCheckout()">×</button>
+      </div>
+
+      <form id="checkoutForm" onsubmit="placeOrder(event)">
+
+        <label>Full Name</label>
+        <input type="text" id="customerName" required>
+
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required>
+
+        <label>Delivery Address</label>
+        <textarea id="address" rows="3" required></textarea>
+
+        <label>Payment Method</label>
+
+        <div class="payment-options">
+          <label>
+            <input type="radio" name="payment" value="Cash on Delivery" checked>
+            💵 Cash on Delivery
+          </label>
+
+          <label>
+            <input type="radio" name="payment" value="UPI">
+            📱 UPI
+          </label>
+
+          <label>
+            <input type="radio" name="payment" value="Card">
+            💳 Card
+          </label>
+        </div>
+
+        <button class="checkout-btn" type="submit">
+          Place Order
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h2>Order Placed!</h2>
+      <p id="successMessage"></p>
+      <button onclick="closeSuccess()">Continue Shopping</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Foodie | Online Food Ordering System</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
